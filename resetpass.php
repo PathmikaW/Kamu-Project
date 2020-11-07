@@ -1,5 +1,45 @@
 <?php
+include 'connection.php';
 
+if(isset($_POST['submit'])){
+	
+	if(isset($_GET['token'])){
+
+		$token = $_GET['token'];
+
+		$newpassword = mysqli_real_escape_string($conn, $_POST['password']);
+		$cpassword = mysqli_real_escape_string($conn, $_POST['repassword']);
+
+		$updatequery= ""
+	}
+
+	$emailquery = " select * from accounts where email='$email'";
+	$query = mysqli_query($conn, $emailquery); 
+
+	$emailcount = mysqli_num_rows($query);
+
+	if($emailcount){
+		$userdata = mysqli_fetch_array($query);
+
+		$username = $userdata['name'];
+		$token = $userdata['token'];
+
+		$subject = "Recover Password";
+		$body = "Hi, $name. Click here to reset your password.
+		http://localhost/1emailverifregistr/recoverpass.php?token=$token";
+		$sender_email = "From:-kamuwetellyouthebest@gmail.com";
+
+		if(mail($email, $subject, $body, $sender_email)){
+			$_SESSION['msg'] = "Check youe email to reset your account $email password";
+			header('Location:login.php');
+		}else{
+			echo "Email sending failed....";
+		}
+	}else{
+		echo "No User Email Found";
+	}
+
+}
 ?>
 
 <!DOCTYPE html>

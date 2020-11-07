@@ -10,6 +10,11 @@ if(isset($_POST['submit'])){
 	$emailcount = mysqli_num_rows($query);
 
 	if($emailcount){
+		$userdata = mysqli_fetch_array($query);
+
+		$username = $userdata['name'];
+		$token = $userdata['token'];
+
 		$subject = "Recover Password";
 		$body = "Hi, $name. Click here to reset your password.
 		http://localhost/1emailverifregistr/recoverpass.php?token=$token";
@@ -51,7 +56,7 @@ if(isset($_POST['submit'])){
 	        <div class="main">
 	        	<div class="bg">
 			        <div class="icon">
-			        	<img src="images/login.png">
+			        	<img src="images/recover.png">
 			        </div>
 
 		        	<div class="banner-text">
